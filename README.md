@@ -21,4 +21,3 @@ Tested with GNU Make 3.81. `VERSION` environment variable defaults to `latest`.
 ## License
 
 [MIT](LICENSE)
-
