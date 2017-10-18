@@ -18,6 +18,10 @@ Tested with GNU Make 3.81. `VERSION` environment variable defaults to `latest`.
 
     make release [-e VERSION=x.y]
 
+## Todo
+
+ * check symfony/flex instead of the installer
+
 ## License
 
 [MIT](LICENSE)
