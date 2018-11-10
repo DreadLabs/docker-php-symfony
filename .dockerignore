@@ -1,0 +1,5 @@
+doc/
+LICENSE
+README.md
+Makefile
+docker-compose.override.yml.dist
