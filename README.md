@@ -11,7 +11,7 @@ Docker images for developing and running Symfony web applications.
     - Symfony installer
     - Composer
     - `php-dbg`, custom command line wrapper for debugging in PhpStorm
-    - `php-prof`, custom command line wrapepr for generating XDebug profiling snapshots (Cachegrind)
+    - `php-prof`, custom command line wrapper for generating XDebug profiling snapshots (Cachegrind)
 
 ### Version schema
 
@@ -28,7 +28,7 @@ services in order to re-write the upated configuration file to the exchange volu
 
 **How it works**:
 
-For an example please view the [`docker-compose.yml.dist`](7.0/dev/docker-compose.override.yml.dist) of the `dev` flavour.
+For an example please view the [`docker-compose.override.yml.dist`](7.0/dev/docker-compose.override.yml.dist) of the `dev` flavour.
 
   1. define a volume `app-nginx` to exchange the Nginx configuration file for the runtime environment (PHP, Symfony)
   2. this volume is mounted to the `app` service, which will then distribute the shipped configuration file on startup
@@ -111,7 +111,7 @@ Some tutorials mentioned to configure this in a certain way. But this is not nec
 
 #### Languages & Frameworks / PHP / Servers
 
-This part is very important to be machted against the `PHP_IDE_CONFIG` setting within the container.
+This part is very important to be matched against the `PHP_IDE_CONFIG` setting within the container.
 
 Create a new configuration, named `app`. Set up the path mappings accordingly. In this example, I created a project, containing
 multiple applications (`api`, `auth`, ...). The directory `api` contains a Symfony application. In most cases, the contents of
