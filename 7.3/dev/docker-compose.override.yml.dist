@@ -1,0 +1,44 @@
+version: '3'
+
+volumes:
+    composer-cache:
+    app-var:
+    # Poor man's service discovery (1/4): Prepare volume for application specific webserver configuration
+    app-nginx:
+
+services:
+    composer:
+        image: dreadlabs/php-symfony:7.3-dev
+        volumes:
+            - composer-cache:/var/cache/composer
+            - app-var:/var/app
+            - .:/app:delegated
+        working_dir: /app
+        entrypoint: ["/usr/local/bin/entrypoint-suexec.sh"]
+        command: ["composer", "install", "--prefer-dist", "--optimize-autoloader", "--no-ansi", "--no-interaction"]
+
+    app:
+        image: dreadlabs/php-symfony:7.3-dev
+        environment:
+          - PHP_IDE_CONFIG=serverName=app
+        volumes:
+            - app-var:/var/app
+            - .:/app:cached
+            # Poor man's service discovery (2/4): put files from the image into this volume
+            - app-nginx:/etc/nginx/conf.d/
+        expose:
+            - 9000
+        working_dir: /app
+        entrypoint: ["/usr/local/bin/entrypoint-suexec.sh"]
+        command: ["php-fpm7.3"]
+
+    nginx:
+        image: nginx:stable
+        ports:
+            - 8080:80
+        volumes:
+            # Poor man's service discovery (3/4): make files from this volume available to this service
+            - app-nginx:/etc/nginx/conf.d/
+        depends_on:
+            # Poor man's service discovery (4/4): wait for application to be started and files are loaded into volumes
+            - app
